@@ -5,8 +5,8 @@ import MoviesScreen from '../screens/home/MoviesScreen';
 import MovieScreen from '../screens/details/MovieScreen';
 
 export type RootStackParams = {
-  Home: undefined;
-  Movie: {movieId: number};
+  HomeScreen: undefined;
+  MovieScreen: {movieId: number};
 };
 
 const Stack = createStackNavigator<RootStackParams>();
@@ -17,8 +17,8 @@ export default function Navigation() {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Home" component={MoviesScreen} />
-      <Stack.Screen name="Movie" component={MovieScreen} />
+      <Stack.Screen name="HomeScreen" component={MoviesScreen} />
+      <Stack.Screen name="MovieScreen" component={MovieScreen} />
     </Stack.Navigator>
   );
 }
