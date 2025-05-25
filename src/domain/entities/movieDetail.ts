@@ -1,6 +1,7 @@
 export interface MovieDetailEntity {
   id: number;
   title: string;
+  original_title: string;
   description: string;
   backdropUrl: string;
   posterUrl: string;
@@ -9,7 +10,7 @@ export interface MovieDetailEntity {
   genres: string[];
   runtime: string;
   rating: number;
-  budget: string;
+  budget: number;
   revenue: string;
   status: string;
   tagline?: string;
