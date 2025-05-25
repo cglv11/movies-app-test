@@ -14,6 +14,7 @@ export class MoviesListMapper {
       releaseYear: new Date(movie.release_date).getFullYear().toString(),
       overview: movie.overview,
       rating: movie.vote_average,
+      genres: movie.genre_ids,
     };
   }
 

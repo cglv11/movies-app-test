@@ -10,6 +10,7 @@ export class MovieCastMapper {
       avatar: c.profile_path
         ? `https://image.tmdb.org/t/p/w500${c.profile_path}`
         : '',
+      gender: c.gender,
     };
   }
 

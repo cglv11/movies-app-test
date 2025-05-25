@@ -6,4 +6,5 @@ export interface MovieListEntity {
   backdropUrl: string;
   releaseYear: string;
   rating: number;
+  genres?: number[];
 }

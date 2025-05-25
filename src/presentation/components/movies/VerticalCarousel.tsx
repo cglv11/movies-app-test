@@ -11,6 +11,9 @@ import {MovieListEntity} from '../../../domain/entities/movieList';
 import MovieCard from './MovieCard';
 import {ActivityIndicator, TextInput} from 'react-native-paper';
 import {useMovieStore} from '../../store/movieStore';
+import {MovieCastEntity} from '../../../domain/entities/cast';
+import {useQueries} from '@tanstack/react-query';
+import {getMovieCast} from '../../../actions/get-movie-cast';
 
 interface Proos {
   movies: MovieListEntity[] | undefined;
@@ -31,12 +34,41 @@ export default function VerticalCarousel({
 }: Proos) {
   const {searchTerm, setSearchTerm} = useMovieStore();
 
+  const castQueries = useQueries({
+    queries: (movies ?? []).map(movie => ({
+      queryKey: ['movieCast', movie.id],
+      queryFn: () => getMovieCast(movie.id),
+      enabled: !!movie.id,
+      staleTime: Infinity,
+    })),
+  });
+
+  const moviesWithCast = React.useMemo(
+    () =>
+      movies?.map((movie, idx) => ({
+        ...movie,
+        cast: castQueries[idx]?.data || [],
+      })),
+    [movies, castQueries],
+  );
+
   const filteredMovies = React.useMemo(() => {
-    if (!searchTerm) return movies;
-    return movies?.filter(m =>
-      m.title.toLowerCase().startsWith(searchTerm.toLowerCase()),
-    );
-  }, [movies, searchTerm]);
+    if (!searchTerm) return moviesWithCast;
+    const letter = searchTerm.charAt(0).toLowerCase();
+    return moviesWithCast?.filter(movie => {
+      if (!movie.title.toLowerCase().startsWith(letter)) return false;
+      if (!movie.genres || movie.genres.length <= 2) return false;
+      const femaleCount = movie.cast.filter(
+        (actor: MovieCastEntity) => actor.gender === 1,
+      ).length;
+      const maleCount = movie.cast.filter(
+        (actor: MovieCastEntity) => actor.gender === 2,
+      ).length;
+      return femaleCount >= 3 && maleCount >= 3;
+    });
+  }, [moviesWithCast, searchTerm]);
+
+  const isAnyCastLoading = castQueries.some(q => q.isLoading);
 
   return (
     <TouchableWithoutFeedback

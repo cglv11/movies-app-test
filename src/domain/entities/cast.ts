@@ -3,4 +3,5 @@ export interface MovieCastEntity {
   name: string;
   character: string;
   avatar: string;
+  gender?: number;
 }
