@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {FadeInImage} from '../ui/FadeInImage';
+import BackButton from '../ui/BackButton';
 
 interface Props {
   poster: string;
@@ -32,11 +33,7 @@ export const MovieHeader = ({poster, originalTitle, title}: Props) => {
         <Text style={styles.title}>{title}</Text>
       </View>
 
-      <View style={styles.backButton}>
-        <Pressable onPress={() => navigation.goBack()}>
-          <Text style={styles.backButtonText}>Regresar</Text>
-        </Pressable>
-      </View>
+      <BackButton />
     </>
   );
 };
@@ -78,20 +75,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-  },
-  backButton: {
-    position: 'absolute',
-    zIndex: 999,
-    elevation: 9,
-    top: 50,
-    left: 10,
-  },
-  backButtonText: {
-    color: 'white',
-    fontSize: 25,
-    fontWeight: 'bold',
-    textShadowColor: 'rgba(0, 0, 0, 0.55)',
-    textShadowOffset: {width: -1, height: 1},
-    textShadowRadius: 10,
   },
 });
