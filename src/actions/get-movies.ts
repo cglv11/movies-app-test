@@ -14,6 +14,7 @@ export const getMovies = async (
       params: {
         api_key: API_KEY,
         page,
+        language: 'es',
       },
     });
 

@@ -10,6 +10,7 @@ export const getMovieById = async (id: number): Promise<MovieDetailEntity> => {
     const {data} = await moviesApi.get<MovieDetailAPI>(`/movie/${id}`, {
       params: {
         api_key: API_KEY,
+        language: 'es',
       },
     });
 
