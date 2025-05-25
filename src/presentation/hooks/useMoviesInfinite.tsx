@@ -1,10 +1,9 @@
 import {useInfiniteQuery} from '@tanstack/react-query';
 import {getMovies} from '../../actions/get-movies';
 import {MovieListEntity} from '../../domain/entities/movieList';
+import {MovieCategory} from '../../domain/types/movieCategory';
 
-export const useMoviesInfinite = (
-  category: 'popular' | 'top_rated' | 'upcoming',
-) => {
+export const useMoviesInfinite = (category: MovieCategory) => {
   return useInfiniteQuery<MovieListEntity[], Error>({
     queryKey: ['movies', category],
     queryFn: ({pageParam = 1}) => getMovies(pageParam, category),
