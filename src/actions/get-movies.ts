@@ -5,9 +5,12 @@ import {MoviesListMapper} from '../infraestructure/mappers/moviesList.mapper';
 
 const API_KEY = process.env.MOVIE_DB_API_KEY;
 
-export const getMovies = async (page: number): Promise<MovieListEntity[]> => {
+export const getMovies = async (
+  page: number,
+  MovieList: string,
+): Promise<MovieListEntity[]> => {
   try {
-    const {data} = await moviesApi.get<MoviesListAPI>('/movie/popular', {
+    const {data} = await moviesApi.get<MoviesListAPI>(`/movie/${MovieList}`, {
       params: {
         api_key: API_KEY,
         page,
