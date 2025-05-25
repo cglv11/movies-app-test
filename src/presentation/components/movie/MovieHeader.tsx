@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {FadeInImage} from '../ui/FadeInImage';
 
 interface Props {
   poster: string;
@@ -22,7 +23,7 @@ export const MovieHeader = ({poster, originalTitle, title}: Props) => {
     <>
       <View style={{...styles.imageContainer, height: screenHeight * 0.7}}>
         <View style={styles.imageBorder}>
-          <Image style={styles.posterImage} source={{uri: poster}} />
+          <FadeInImage style={styles.posterImage} uri={poster} />
         </View>
       </View>
 

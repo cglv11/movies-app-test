@@ -3,6 +3,7 @@ import React from 'react';
 import {MovieListEntity} from '../../../domain/entities/movieList';
 import {RootStackParams} from '../../navigation/Navigation';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {FadeInImage} from '../ui/FadeInImage';
 
 interface Props {
   movie: MovieListEntity;
@@ -25,7 +26,7 @@ export default function MovieCard({movie, height = 420, width = 300}: Props) {
         opacity: pressed ? 0.9 : 1,
       })}>
       <View style={styles.movieContainer}>
-        <Image source={{uri: movie.posterUrl}} style={styles.image} />
+        <FadeInImage uri={movie.posterUrl} style={styles.image} />
       </View>
     </Pressable>
   );

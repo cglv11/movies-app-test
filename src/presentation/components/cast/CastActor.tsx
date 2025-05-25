@@ -1,5 +1,6 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {MovieCastEntity} from '../../../domain/entities/cast';
+import {FadeInImage} from '../ui/FadeInImage';
 
 interface Props {
   actor: MovieCastEntity;
@@ -8,8 +9,8 @@ interface Props {
 export const CastActor = ({actor}: Props) => {
   return (
     <View style={styles.container}>
-      <Image
-        source={{uri: actor.avatar}}
+      <FadeInImage
+        uri={actor.avatar}
         style={{width: 100, height: 150, borderRadius: 10}}
       />
 
