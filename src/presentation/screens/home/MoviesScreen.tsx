@@ -9,21 +9,45 @@ export default function MoviesScreen() {
   const {top} = useSafeAreaInsets();
 
   const {
-    data: movies,
-    error,
-    isLoading,
+    data: pupularMovies,
+    error: pupularMoviesError,
+    isLoading: isPopularMoviesLoading,
   } = useQuery({
-    queryKey: ['movies', 1],
-    queryFn: () => getMovies(1),
+    queryKey: ['movies', 'popular', 1],
+    queryFn: () => getMovies(1, 'popular'),
+  });
+
+  const {
+    data: topRatedMovies,
+    error: topRatedMoviesError,
+    isLoading: topRatedMoviesIsLoading,
+  } = useQuery({
+    queryKey: ['movies', 'top_rated', 1],
+    queryFn: () => getMovies(1, 'top_rated'),
+  });
+
+  const {
+    data: upcomingMovies,
+    error: upcomingMoviesError,
+    isLoading: upcomingMoviesIsLoading,
+  } = useQuery({
+    queryKey: ['movies', 'upcoming', 1],
+    queryFn: () => getMovies(1, 'upcoming'),
   });
 
   return (
     <ScrollView>
-      <View style={{marginTop: top + 20, paddingBottom: 30}}>
-        <HorizontalCarousel movies={movies} />
+      <View style={{marginTop: top + 30, paddingBottom: 30}}>
+        <HorizontalCarousel movies={pupularMovies} title="Todas" />
         <HorizontalCarousel
-          movies={movies}
-          title="Populares"
+          movies={topRatedMovies}
+          title="Mejor valoradas"
+          heightCard={200}
+          widthCard={140}
+        />
+        <HorizontalCarousel
+          movies={upcomingMovies}
+          title="Cartelera"
           heightCard={200}
           widthCard={140}
         />
