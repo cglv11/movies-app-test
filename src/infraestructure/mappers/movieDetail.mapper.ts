@@ -6,6 +6,7 @@ export class MovieDetailMapper {
     return {
       id: movie.id,
       title: movie.title,
+      original_title: movie.original_title,
       description: movie.overview,
       backdropUrl: `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`,
       posterUrl: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
@@ -14,7 +15,7 @@ export class MovieDetailMapper {
       genres: movie.genres.map(g => g.name),
       runtime: `${movie.runtime} min`,
       rating: movie.vote_average,
-      budget: `$${movie.budget.toLocaleString()}`,
+      budget: movie.budget,
       revenue: `$${movie.revenue.toLocaleString()}`,
       status: movie.status,
       tagline: movie.tagline,
