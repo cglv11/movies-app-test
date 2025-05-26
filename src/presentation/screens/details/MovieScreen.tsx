@@ -19,11 +19,7 @@ export default function MovieScreen({route}: Props) {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <MovieHeader
-        originalTitle={movie!.original_title}
-        title={movie!.title}
-        poster={movie!.posterUrl}
-      />
+      <MovieHeader movie={movie!} />
       <MovieDetails movie={movie!} cast={cast} />
     </ScrollView>
   );

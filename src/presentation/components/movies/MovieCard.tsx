@@ -4,9 +4,10 @@ import {MovieListEntity} from '../../../domain/entities/movieList';
 import {RootStackParams} from '../../navigation/Navigation';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {FadeInImage} from '../ui/FadeInImage';
+import {MovieDetailEntity} from '../../../domain/entities/movieDetail';
 
 interface Props {
-  movie: MovieListEntity;
+  movie: MovieListEntity | MovieDetailEntity;
   height?: number;
   width?: number;
 }

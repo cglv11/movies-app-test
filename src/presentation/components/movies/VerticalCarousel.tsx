@@ -19,9 +19,9 @@ interface Proos {
   movies: MovieListEntity[] | undefined;
   heightCard?: number;
   widthCard?: number;
-  fetchNextPage: () => void;
-  hasNextPage: boolean;
-  isFetchingNextPage: boolean;
+  fetchNextPage?: () => void;
+  hasNextPage?: boolean;
+  isFetchingNextPage?: boolean;
 }
 
 export default function VerticalCarousel({
@@ -68,8 +68,6 @@ export default function VerticalCarousel({
     });
   }, [moviesWithCast, searchTerm]);
 
-  const isAnyCastLoading = castQueries.some(q => q.isLoading);
-
   return (
     <TouchableWithoutFeedback
       onPress={() => Keyboard.dismiss()}
@@ -98,7 +96,7 @@ export default function VerticalCarousel({
           )}
           onEndReached={() => {
             if (hasNextPage && !isFetchingNextPage) {
-              fetchNextPage();
+              fetchNextPage?.();
             }
           }}
           onEndReachedThreshold={0.5}

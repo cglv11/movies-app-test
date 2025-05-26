@@ -1,13 +1,13 @@
-import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
-import {getMovies} from '../../../actions/get-movies';
-import {useInfiniteQuery, useQuery} from '@tanstack/react-query';
 import HorizontalCarousel from '../../components/movies/HorizontalCarousel';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ActivityIndicator, FAB, Text} from 'react-native-paper';
 import {useMoviesInfinite} from '../../hooks/useMoviesInfinite';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParams} from '../../navigation/Navigation';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 export default function MoviesScreen() {
   const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -33,7 +33,7 @@ export default function MoviesScreen() {
   return (
     <>
       <ScrollView>
-        <View style={{marginTop: top + 30, paddingBottom: 30}}>
+        <View style={{marginTop: top + 10, paddingBottom: 30}}>
           <HorizontalCarousel
             movies={popularMovies}
             title="Todas"
@@ -61,21 +61,48 @@ export default function MoviesScreen() {
           />
         </View>
       </ScrollView>
-      <FAB
-        label="Buscar película"
-        style={style.fab}
-        mode="elevated"
-        color="#fff"
-        onPress={() => navigation.navigate('SearchScreen')}></FAB>
+      <View style={styles.fabContainer}>
+        <Pressable
+          style={styles.fabButton}
+          onPress={() => navigation.navigate('WatchlistScreen')}>
+          <Text style={styles.fabText}>POR VER</Text>
+          <MaterialIcon
+            name="bookmark"
+            size={20}
+            color="#fff"
+            style={{marginLeft: 4}}
+          />
+        </Pressable>
+        <Pressable
+          style={styles.fabButton}
+          onPress={() => navigation.navigate('SearchScreen')}>
+          <Ionicon name="search" size={24} color="#fff" />
+        </Pressable>
+      </View>
     </>
   );
 }
 
-export const style = StyleSheet.create({
-  fab: {
+export const styles = StyleSheet.create({
+  fabContainer: {
     position: 'absolute',
     bottom: 20,
     right: 20,
+    flexDirection: 'row',
+  },
+  fabButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: 12,
     backgroundColor: '#000',
+    borderRadius: 28,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    elevation: 4,
+  },
+  fabText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 14,
   },
 });
