@@ -1,97 +1,145 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# AppMovies
 
-# Getting Started
+AppMovies es una aplicación móvil desarrollada con React Native CLI para explorar información de películas usando la API de TMDb (The Movie Database). Permite:
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+- Ver secciones de películas: Populares, Mejor valoradas y Cartelera.
+- Buscar películas por letra inicial y aplicar filtros de género y reparto.
+- Ver detalles de cada película con sinopsis, reparto y más.
+- Marcar películas en una lista "Por ver" (watchlist) con persistencia local (Zustand + persist).
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 📂 Estructura del proyecto
 
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+```text
+AppMovies/
+├─ android/                 # Código nativo Android
+├─ ios/                     # Código nativo iOS
+├─ src/
+│  ├─ actions/              # Llamadas a TMDb (get-movies, get-movie-by-id, get-movie-cast)
+│  ├─ config/
+│  │  ├─ api/               # Instancia de Axios y configuración de base URL
+│  │  └─ helpers/           # Helpers y utilidades (formatter, etc.)
+│  ├─ domain/
+│  │  ├─ entities/          # Definición de entidades (MovieListEntity, MovieDetailEntity, MovieCastEntity)
+│  │  └─ types/             # Tipos del dominio (MovieCategory)
+│  ├─ infrastructure/
+│  │  ├─ interfaces/        # DTOs de respuesta de la API de TMDb
+│  │  └─ mappers/           # Mappers de interfaces a entidades de dominio
+│  ├─ presentation/
+│  │  ├─ components/        # Componentes genéricos (MovieCard, HorizontalCarousel, FadeInImage, etc.)
+│  │  ├─ hooks/             # Custom hooks (useMoviesInfinite, useMovieDetails)
+│  │  ├─ navigation/        # React Navigation (RootStackParams, Stack.Navigator)
+│  │  ├─ screens/           # Pantallas (MoviesScreen, MovieScreen, SearchScreen, WatchlistScreen)
+│  │  └─ ui/                # Componentes UI específicos (BackButton, loaders)
+│  ├─ store/                # Zustand store (searchTerm y watchlist)
+│  └─ types/                # Tipos compartidos para presentación (si los hay)
+├─ .env                     # Variables de entorno (API_KEY de TMDb)
+├─ .eslintrc.js             # Configuración de ESLint
+├─ babel.config.js          # Configuración de Babel
+├─ tsconfig.json            # Configuración de TypeScript
+├─ package.json             # Dependencias y scripts
+└─ README.md                # Documentación del proyecto
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## 🛠️ Tecnologías
 
-### Android
+- **React Native** 0.79.2 (CLI)
+- **TypeScript** 5.0.4
+- **React Navigation** (stack)
+- **React Query** (@tanstack/react-query)
+- **Zustand** + middleware `persist`
+- **Axios** para HTTP
+- **react-native-paper** para componentes UI base
+- **react-native-vector-icons** para iconografía
 
-```sh
-# Using npm
-npm run android
+---
 
-# OR using Yarn
-yarn android
-```
+## 🚀 Instalación y ejecución
 
-### iOS
+1. Clonar el repositorio:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+   ```bash
+   git clone <url-del-repo> AppMovies
+   cd AppMovies
+   ```
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+2. Instalar dependencias:
 
-```sh
-bundle install
-```
+   ```bash
+   yarn install
+   # o npm install
+   ```
 
-Then, and every time you update your native dependencies, run:
+3. Crear archivo `.env` en la raíz con tu API Key de TMDb:
 
-```sh
-bundle exec pod install
-```
+   ```env
+   MOVIE_DB_API_KEY=tu_api_key_aquí
+   ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+4. Ejecutar en Android o iOS:
 
-```sh
-# Using npm
-npm run ios
+   ```bash
+   yarn start      # Inicia Metro Bundler
+   yarn android    # Lanza en emulador/dispositivo Android
+   yarn ios        # Lanza en simulador iOS
+   ```
 
-# OR using Yarn
-yarn ios
-```
+5. Lintear y testear:
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+   ```bash
+   yarn lint
+   yarn test
+   ```
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+---
 
-## Step 3: Modify your app
+## 📐 Scripts disponibles
 
-Now that you have successfully run the app, let's make changes!
+| Script         | Descripción                |
+| -------------- | -------------------------- |
+| `yarn start`   | Inicia Metro Bundler       |
+| `yarn android` | Compila y lanza en Android |
+| `yarn ios`     | Compila y lanza en iOS     |
+| `yarn lint`    | Corre ESLint               |
+| `yarn test`    | Ejecuta tests con Jest     |
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+---
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## 🔒 Variables de entorno
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+| Variable           | Descripción     |
+| ------------------ | --------------- |
+| `MOVIE_DB_API_KEY` | API Key de TMDb |
 
-## Congratulations! :tada:
+Asegúrate de no commitear tu `.env` a Git.
 
-You've successfully run and modified your React Native App. :partying_face:
+---
 
-### Now what?
+## 📈 Arquitectura y flujo de datos
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+1. **Acciones (`src/actions`)**: usan Axios para llamar a endpoints de TMDb y devuelven DTOs.
+2. **Mappers (`src/infrastructure`)**: traducen la respuesta de la API a entidades de dominio (`MovieListEntity`, `MovieDetailEntity`).
+3. **Hooks (`src/hooks`)**: encapsulan la lógica de `useInfiniteQuery` y `useQuery` (React Query) para fetching y cache.
+4. **Store (`src/store`)**: Zustand maneja el estado global (término de búsqueda y watchlist) con persistencia.
+5. **Presentación (`src/presentation`)**: pantallas y componentes reutilizables, navegación stack y UI.
 
-# Troubleshooting
+---
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## 🤝 Contribuciones
 
-# Learn More
+Las contribuciones son bienvenidas:
 
-To learn more about React Native, take a look at the following resources:
+1. Haz un fork.
+2. Crea una rama feature: `git checkout -b feature/nueva-funcionalidad`.
+3. Haz commit de tus cambios: `git commit -m 'Agrega feature X'`.
+4. Push a la rama: `git push origin feature/nueva-funcionalidad`.
+5. Abre un Pull Request.
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia MIT. Revisa el archivo `LICENSE` para más detalles.
