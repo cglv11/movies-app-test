@@ -18,6 +18,7 @@ interface Props {
 export const FadeInImage = ({uri, style}: Props) => {
   const {animatedOpacity, fadeIn} = useAnimation();
   const [isLoading, setIsLoading] = useState(true);
+  const validUri = uri?.trim().length ? uri : null;
 
   return (
     <View style={[style, styles.container]}>
@@ -28,15 +29,19 @@ export const FadeInImage = ({uri, style}: Props) => {
           size={30}
         />
       )}
-      <Animated.Image
-        source={{uri}}
-        onLoadEnd={() => {
-          fadeIn({});
-          setIsLoading(false);
-        }}
-        style={[StyleSheet.absoluteFill, {opacity: animatedOpacity}]}
-        resizeMode="cover"
-      />
+      {validUri ? (
+        <Animated.Image
+          source={{uri: validUri}}
+          onLoadEnd={() => {
+            fadeIn({});
+            setIsLoading(false);
+          }}
+          style={[StyleSheet.absoluteFill, {opacity: animatedOpacity}]}
+          resizeMode="cover"
+        />
+      ) : (
+        <View style={[StyleSheet.absoluteFill, styles.placeholder]} />
+      )}
     </View>
   );
 };
@@ -46,5 +51,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  placeholder: {
+    backgroundColor: '#ccc',
   },
 });
