@@ -66,11 +66,11 @@ AppMovies/
    cd AppMovies
    ```
 
-2. Instalar dependencias:
+2. Instalar dependencias (Yarn o npm):
 
    ```bash
-   yarn install
-   # o npm install
+   yarn install           # o
+   npm install
    ```
 
 3. Crear archivo `.env` en la raíz con tu API Key de TMDb:
@@ -82,29 +82,36 @@ AppMovies/
 4. Ejecutar en Android o iOS:
 
    ```bash
-   yarn start      # Inicia Metro Bundler
-   yarn android    # Lanza en emulador/dispositivo Android
-   yarn ios        # Lanza en simulador iOS
+   yarn start             # o npm run start
+   yarn android           # o npm run android
+   yarn ios               # o npm run ios
    ```
 
 5. Lintear y testear:
 
    ```bash
-   yarn lint
-   yarn test
+   yarn lint              # o npm run lint
+   yarn test              # o npm test
    ```
 
 ---
 
 ## 📐 Scripts disponibles
 
-| Script         | Descripción                |
-| -------------- | -------------------------- |
-| `yarn start`   | Inicia Metro Bundler       |
-| `yarn android` | Compila y lanza en Android |
-| `yarn ios`     | Compila y lanza en iOS     |
-| `yarn lint`    | Corre ESLint               |
-| `yarn test`    | Ejecuta tests con Jest     |
+| Comando                            | Descripción                |
+| ---------------------------------- | -------------------------- |
+| `yarn start` / `npm run start`     | Inicia Metro Bundler       |
+| `yarn android` / `npm run android` | Compila y lanza en Android |
+| `yarn ios` / `npm run ios`         | Compila y lanza en iOS     |
+| `yarn lint` / `npm run lint`       | Corre ESLint               |
+| `yarn test` / `npm test`           | Ejecuta tests con Jest     |
+
+\-------------- | ----------------------------------------- |
+\| `yarn start` | Inicia Metro Bundler |
+\| `yarn android` | Compila y lanza en Android |
+\| `yarn ios` | Compila y lanza en iOS |
+\| `yarn lint` | Corre ESLint |
+\| `yarn test` | Ejecuta tests con Jest |
 
 ---
 
